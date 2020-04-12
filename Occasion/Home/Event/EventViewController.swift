@@ -72,30 +72,6 @@ class EventViewController: UIViewController, UIGestureRecognizerDelegate {
         eventDescription.text = passDescription
     }
     
-    func initiateMap() {
-        // Set initial location in Honolulu
-        let initialLocation = CLLocation(latitude: latitude, longitude: longitude)
-        mapView.centerToLocation(initialLocation, regionRadius: 10000)
-        
-        setPinUsingMKPointAnnotation(location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-    }
-    
-    func setPinUsingMKPlacemark(location: CLLocationCoordinate2D) {
-       let pin = MKPlacemark(coordinate: location)
-       let coordinateRegion = MKCoordinateRegion(center: pin.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-       mapView.setRegion(coordinateRegion, animated: true)
-       mapView.addAnnotation(pin)
-    }
-    
-    func setPinUsingMKPointAnnotation(location: CLLocationCoordinate2D) {
-       let annotation = MKPointAnnotation()
-       annotation.coordinate = location
-       annotation.title = passTitle
-       annotation.subtitle = startDate
-       let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
-       mapView.setRegion(coordinateRegion, animated: true)
-       mapView.addAnnotation(annotation)
-    }
 
     
     //MARK: - Actions
@@ -112,8 +88,33 @@ class EventViewController: UIViewController, UIGestureRecognizerDelegate {
     
 }
 
-
+//MARK: - MapView
 extension EventViewController {
+    func initiateMap() {
+        // Set initial location in Honolulu
+        let initialLocation = CLLocation(latitude: latitude, longitude: longitude)
+        mapView.centerToLocation(initialLocation, regionRadius: 10000)
+        
+        setPinUsingMKPointAnnotation(location: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+    }
+    /*
+    func setPinUsingMKPlacemark(location: CLLocationCoordinate2D) {
+       let pin = MKPlacemark(coordinate: location)
+       let coordinateRegion = MKCoordinateRegion(center: pin.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+       mapView.setRegion(coordinateRegion, animated: true)
+       mapView.addAnnotation(pin)
+    }*/
+    
+    func setPinUsingMKPointAnnotation(location: CLLocationCoordinate2D) {
+       let annotation = MKPointAnnotation()
+       annotation.coordinate = location
+       annotation.title = passTitle
+       annotation.subtitle = startDate
+       let coordinateRegion = MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 1500, longitudinalMeters: 1500)
+       mapView.setRegion(coordinateRegion, animated: true)
+       mapView.addAnnotation(annotation)
+    }
+    
     func getDirections() {
         let actionSheet = UIAlertController(title: "Get Directions", message: "Get directions to the location of event.", preferredStyle: .actionSheet)
         
@@ -165,16 +166,15 @@ extension EventViewController {
     }
 }
 
-
-//MARK: - MapView
 extension MKMapView {
-  func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000) {
-    let coordinateRegion = MKCoordinateRegion(
-      center: location.coordinate,
-      latitudinalMeters: regionRadius,
-      longitudinalMeters: regionRadius)
-    setRegion(coordinateRegion, animated: true)
-  }
+    
+    func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius)
+            setRegion(coordinateRegion, animated: true)
+    }
 }
 
 

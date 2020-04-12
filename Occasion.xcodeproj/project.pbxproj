@@ -22,6 +22,7 @@
 		237B0E972440E57E0094414C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E962440E57E0094414C /* ProfileViewController.swift */; };
 		237B0E992441166A0094414C /* AddEventAnchorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E982441166A0094414C /* AddEventAnchorViewController.swift */; };
 		237B0E9B24411AD00094414C /* GesturesRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E9A24411AD00094414C /* GesturesRecognition.swift */; };
+		237B0E9F244377930094414C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E9E244377930094414C /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		237B0E962440E57E0094414C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		237B0E982441166A0094414C /* AddEventAnchorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventAnchorViewController.swift; sourceTree = "<group>"; };
 		237B0E9A24411AD00094414C /* GesturesRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesRecognition.swift; sourceTree = "<group>"; };
+		237B0E9E244377930094414C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				2301B0DC24377185002AD435 /* AppDelegate.swift */,
 				2301B0DE24377185002AD435 /* SceneDelegate.swift */,
 				237B0E9A24411AD00094414C /* GesturesRecognition.swift */,
+				237B0E9E244377930094414C /* Extensions.swift */,
 				2374A147243B90BB00864A7F /* Event Model */,
 				2374A146243B90AA00864A7F /* Home */,
 				237B0E9C2443533D0094414C /* Add Event */,
@@ -329,6 +332,7 @@
 				2374A145243B70CA00864A7F /* Event.swift in Sources */,
 				237B0E972440E57E0094414C /* ProfileViewController.swift in Sources */,
 				237B0E992441166A0094414C /* AddEventAnchorViewController.swift in Sources */,
+				237B0E9F244377930094414C /* Extensions.swift in Sources */,
 				2301B0DF24377185002AD435 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,7 +12,6 @@ class AddEventAnchorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
@@ -21,24 +20,11 @@ class AddEventAnchorViewController: UIViewController {
         
         let addEventVC: AddEventViewController =
             self.storyboard!.instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
-        
         self.present(addEventVC, animated: true, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //self.tabBarController?.selectedIndex = previousViewIndex
-        
-        
-        
-        
-        self.tabBarController?.selectedIndex = previousViewIndex
-        
-        
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         
         self.tabBarController?.selectedIndex = previousViewIndex
     }
