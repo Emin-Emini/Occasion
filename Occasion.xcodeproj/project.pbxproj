@@ -9,12 +9,19 @@
 /* Begin PBXBuildFile section */
 		2301B0DD24377185002AD435 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301B0DC24377185002AD435 /* AppDelegate.swift */; };
 		2301B0DF24377185002AD435 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301B0DE24377185002AD435 /* SceneDelegate.swift */; };
-		2301B0E124377185002AD435 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301B0E024377185002AD435 /* ViewController.swift */; };
+		2301B0E124377185002AD435 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301B0E024377185002AD435 /* HomeViewController.swift */; };
 		2301B0E424377185002AD435 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2301B0E224377185002AD435 /* Main.storyboard */; };
 		2301B0E624377188002AD435 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2301B0E524377188002AD435 /* Assets.xcassets */; };
 		2301B0E924377188002AD435 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2301B0E724377188002AD435 /* LaunchScreen.storyboard */; };
 		2301B0F424377188002AD435 /* OccasionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301B0F324377188002AD435 /* OccasionTests.swift */; };
 		2301B0FF24377188002AD435 /* OccasionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2301B0FE24377188002AD435 /* OccasionUITests.swift */; };
+		2361F259243E3BCB0052FCE6 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2361F258243E3BCB0052FCE6 /* AddEventViewController.swift */; };
+		2374A1402437861D00864A7F /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2374A13F2437861D00864A7F /* EventTableViewCell.swift */; };
+		2374A143243B688700864A7F /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2374A142243B688700864A7F /* EventViewController.swift */; };
+		2374A145243B70CA00864A7F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2374A144243B70CA00864A7F /* Event.swift */; };
+		237B0E972440E57E0094414C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E962440E57E0094414C /* ProfileViewController.swift */; };
+		237B0E992441166A0094414C /* AddEventAnchorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E982441166A0094414C /* AddEventAnchorViewController.swift */; };
+		237B0E9B24411AD00094414C /* GesturesRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237B0E9A24411AD00094414C /* GesturesRecognition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +45,7 @@
 		2301B0D924377185002AD435 /* Occasion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Occasion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2301B0DC24377185002AD435 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2301B0DE24377185002AD435 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2301B0E024377185002AD435 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2301B0E024377185002AD435 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2301B0E324377185002AD435 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2301B0E524377188002AD435 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2301B0E824377188002AD435 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +56,13 @@
 		2301B0FA24377188002AD435 /* OccasionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OccasionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2301B0FE24377188002AD435 /* OccasionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccasionUITests.swift; sourceTree = "<group>"; };
 		2301B10024377188002AD435 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2361F258243E3BCB0052FCE6 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		2374A13F2437861D00864A7F /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		2374A142243B688700864A7F /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		2374A144243B70CA00864A7F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		237B0E962440E57E0094414C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		237B0E982441166A0094414C /* AddEventAnchorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventAnchorViewController.swift; sourceTree = "<group>"; };
+		237B0E9A24411AD00094414C /* GesturesRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesRecognition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +115,11 @@
 			children = (
 				2301B0DC24377185002AD435 /* AppDelegate.swift */,
 				2301B0DE24377185002AD435 /* SceneDelegate.swift */,
-				2301B0E024377185002AD435 /* ViewController.swift */,
+				237B0E9A24411AD00094414C /* GesturesRecognition.swift */,
+				2374A147243B90BB00864A7F /* Event Model */,
+				2374A146243B90AA00864A7F /* Home */,
+				237B0E9C2443533D0094414C /* Add Event */,
+				237B0E9D244353490094414C /* Profile */,
 				2301B0E224377185002AD435 /* Main.storyboard */,
 				2301B0E524377188002AD435 /* Assets.xcassets */,
 				2301B0E724377188002AD435 /* LaunchScreen.storyboard */,
@@ -126,6 +144,49 @@
 				2301B10024377188002AD435 /* Info.plist */,
 			);
 			path = OccasionUITests;
+			sourceTree = "<group>";
+		};
+		2361F257243E3BB10052FCE6 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				2374A142243B688700864A7F /* EventViewController.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		2374A146243B90AA00864A7F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2301B0E024377185002AD435 /* HomeViewController.swift */,
+				2374A13F2437861D00864A7F /* EventTableViewCell.swift */,
+				2361F257243E3BB10052FCE6 /* Event */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		2374A147243B90BB00864A7F /* Event Model */ = {
+			isa = PBXGroup;
+			children = (
+				2374A144243B70CA00864A7F /* Event.swift */,
+			);
+			path = "Event Model";
+			sourceTree = "<group>";
+		};
+		237B0E9C2443533D0094414C /* Add Event */ = {
+			isa = PBXGroup;
+			children = (
+				237B0E982441166A0094414C /* AddEventAnchorViewController.swift */,
+				2361F258243E3BCB0052FCE6 /* AddEventViewController.swift */,
+			);
+			path = "Add Event";
+			sourceTree = "<group>";
+		};
+		237B0E9D244353490094414C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				237B0E962440E57E0094414C /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +320,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2301B0E124377185002AD435 /* ViewController.swift in Sources */,
+				2374A143243B688700864A7F /* EventViewController.swift in Sources */,
+				2374A1402437861D00864A7F /* EventTableViewCell.swift in Sources */,
+				2301B0E124377185002AD435 /* HomeViewController.swift in Sources */,
+				237B0E9B24411AD00094414C /* GesturesRecognition.swift in Sources */,
 				2301B0DD24377185002AD435 /* AppDelegate.swift in Sources */,
+				2361F259243E3BCB0052FCE6 /* AddEventViewController.swift in Sources */,
+				2374A145243B70CA00864A7F /* Event.swift in Sources */,
+				237B0E972440E57E0094414C /* ProfileViewController.swift in Sources */,
+				237B0E992441166A0094414C /* AddEventAnchorViewController.swift in Sources */,
 				2301B0DF24377185002AD435 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
