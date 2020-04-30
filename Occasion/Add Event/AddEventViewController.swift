@@ -10,11 +10,13 @@ import UIKit
 
 var previousViewIndex = 0
 
-class AddEventViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
+class AddEventViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
 
     
     //MARK: - Outlets
     @IBOutlet weak var closeButton: UIButton!
+    
+    //Data
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var eventName: UITextField!
     @IBOutlet weak var eventDescription: UITextField!
@@ -55,6 +57,9 @@ class AddEventViewController: UIViewController, UINavigationControllerDelegate, 
         PDSeparatorView.isHidden = true
         PDSeparatorView.alpha = 0
         
+        self.eventName.delegate = self
+        self.eventDescription.delegate = self
+        
         // Gestures
         self.pan = UIPanGestureRecognizer(target: self, action: #selector(self.panAction))
         self.pan.delegate = self
@@ -75,6 +80,23 @@ class AddEventViewController: UIViewController, UINavigationControllerDelegate, 
         self.hidesBottomBarWhenPushed = true
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.switchBasedNextTextField(textField)
+        
+        return true
+    }
+    
+    private func switchBasedNextTextField(_ textField: UITextField) {
+       switch textField {
+        case eventName:
+            self.eventDescription.becomeFirstResponder()
+        case eventDescription:
+            self.view.endEditing(true)
+            showPickerView(show: true)
+        default:
+            self.view.endEditing(true)
+        }
+    }
     
     
     //MARK: - Actions
@@ -98,34 +120,16 @@ class AddEventViewController: UIViewController, UINavigationControllerDelegate, 
     
     //Choose Date and Show Picker View
     @IBAction func chooseDate(_ sender: Any) {
-        chooseDateViewPosition.constant = iPhoneSize
-        PDSeparatorView.isHidden = false
-        PDSeparatorView.alpha = 1.0
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
+        showPickerView(show: true)
     }
     
     @IBAction func cancelPickingDate(_ sender: Any) {
-        self.chooseDateViewPosition.constant -= (self.chooseDateView.frame.size.height + iPhoneSize * 2)
-        PDSeparatorView.alpha = 0
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
-        PDSeparatorView.isHidden = true
+        showPickerView(show: false)
         
     }
     
     @IBAction func submitDate(_ sender: Any) {
-        self.chooseDateViewPosition.constant -= (self.chooseDateView.frame.size.height + iPhoneSize * 2)
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
-        PDSeparatorView.alpha = 0
-        UIView.animate(withDuration: 0.5) {
-            self.view.layoutIfNeeded()
-        }
-        PDSeparatorView.isHidden = true
+        showPickerView(show: false)
         
     }
     
@@ -162,6 +166,25 @@ extension AddEventViewController {
         dateFormatter.dateFormat = "dd MMM, YYYY - HH:MM"
         eventDate = dateFormatter.string(from: pickerDate.date)
         self.view.endEditing(true)
+    }
+    
+    func showPickerView(show: Bool) {
+        if show {
+            chooseDateViewPosition.constant = iPhoneSize
+            PDSeparatorView.isHidden = false
+            PDSeparatorView.alpha = 1.0
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            self.chooseDateViewPosition.constant -= (self.chooseDateView.frame.size.height + iPhoneSize * 2)
+            PDSeparatorView.alpha = 0
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+            PDSeparatorView.isHidden = true
+        }
+        
     }
     
     func setPickerViewPosition() {
