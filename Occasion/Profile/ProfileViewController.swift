@@ -12,6 +12,10 @@ var myEvents = [Events]()
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet var profilePhoto: UIImageView!
+    @IBOutlet var myName: UILabel!
+    @IBOutlet var myBio: UILabel!
+    
     @IBOutlet weak var myEventsTableView: UITableView!
     
     let refreshControl = UIRefreshControl()
@@ -50,17 +54,36 @@ class ProfileViewController: UIViewController {
     
     
     func fetchData() {
+        
         let getEvents = APIRequest(request: "myEvents")
 
-                      getEvents.getEvents(completion: { result in
-                          switch result {
-                          case .success(let APIEvents):
-                            myEvents = APIEvents
-                          case .failure(let error):
-                              print("Error: \(error)")
-                          }
+        getEvents.getEvents(completion: { result in
+            switch result {
+            case .success(let APIEvents):
+                myEvents = APIEvents
+            case .failure(let error):
+                print("Error: \(error)")
+            }
 
-                      })
+        })
+
+        
+        let getUserDeatails = APIRequest(request: "userdetails")
+        
+        getUserDeatails.getUserDetails(completion: { result in
+            switch result {
+            case .success(let userDetails):
+                self.profilePhoto.image = UIImage(named: userDetails[0].photo)
+                self.myName.text = userDetails[0].name
+                self.myBio.text = "My name is \(userDetails[0].name), and I'm Computer Science and Engineering student. I have created \(myEvents.count) events"
+                print("\(userDetails)")
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+
+        })
+        
+       
     }
 
 }
@@ -102,6 +125,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         let event = myEvents[indexPath.row]
         
+        eventVC.eventID = event.id!
         eventVC.image = UIImage(named: "\(event.photo)")!
         eventVC.passTitle = event.name
         eventVC.passDescription = event.description

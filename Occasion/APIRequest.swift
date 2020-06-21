@@ -66,78 +66,8 @@ struct APIRequest {
             completion(.failure(.encodingProblem))
         }
         
-        /*
-        var urlRequest = URLRequest(url: resourceURL)
-        
-        let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, _ in
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let jsonData = data else {
-                completion(.failure(.responseProblem))
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                //let eventsData = try JSONDecoder().decode(User.self, from: jsonData)
-                let messageData = try decoder.decode(User.self, from: jsonData)
-                print(messageData)
-                completion(.success(messageData))
-            } catch {
-                completion(.failure(.decodingProblem))
-            }
-        }
-        dataTask.resume()*/
-        
     }
-    /*
-    func register(_ user: User, completion: @escaping(Result<UserResponse, APIError>) -> Void) {
-        
-        do {
-            var urlRequest = URLRequest(url: resourceURL)
-            urlRequest.httpMethod = "POST"
-            urlRequest.setValue("close", forHTTPHeaderField: "Connection")
-            urlRequest.addValue("multipart/form-data", forHTTPHeaderField: "Accept")
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Contant-Type")
-            guard let body = try? JSONEncoder().encode([
-                "name": "Emin",
-                "email": "eee22qdqw@gmail.com",
-                "photo": "htttps://wefwef",
-                "birthdate": "1998-01-01",
-                "password": "12345678"
-            ]) else {
-                print("failed to encode")
-                return
-            }
-            urlRequest.httpBody = body
-            
-            let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, _ in
-                
-                if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode == 409 {
-                        print("User Exists")
-                    } else {
-                        print(httpResponse.statusCode)
-                        print(httpResponse.allHeaderFields)
-                    }
-                }
-                
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let jsonData = data else {
-                    completion(.failure(.responseProblem))
-                    return
-                }
-                do {
-                    let messageData = try JSONDecoder().decode(UserResponse.self, from: jsonData)
-                    completion(.success(messageData))
-                    
-                } catch {
-                    completion(.failure(.decodingProblem))
-                }
-            }
-            dataTask.resume()
-            
-        } catch {
-            completion(.failure(.encodingProblem))
-        }
-        
-    }*/
+    
     
     
     func register(_ user: User, completion: @escaping(Result<UserResponse, APIError>) -> Void) {
@@ -298,6 +228,76 @@ struct APIRequest {
         })
         task.resume()
     }
+    
+    
+    func inviteFriend(_ invite: Invite, completion: @escaping(Result<UserResponse, APIError>) -> Void) {
+        let body = [
+            "email": invite.email,
+            "event_id": invite.event_id
+            ] as [String : Any]
+    
+        let session = URLSession.shared
+        var request = URLRequest(url: resourceURL)
+        request.httpMethod = "POST"
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        request.setValue("Bearer \(userToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let task = session.dataTask(with: request, completionHandler: { data, response, error in
+            guard error == nil else {
+                //completion(nil, error)
+                return
+            }
+            guard let data = data else {
+                //completion(nil, NSError(domain: "dataNilError", code: -100001, userInfo: nil))
+                return
+            }
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as?[String: Any] else {
+                    //completion(nil, NSError(domain: "invalidJSONTypeError", code: -100009, userInfo: nil))
+                    return
+                }
+                print(json)
+                //completion(json, nil)
+            } catch let error {
+                print(error.localizedDescription)
+                //completion(nil, error)
+            }
+        })
+        task.resume()
+    }
+    
+    
+    func getUserDetails(completion: @escaping(Result<[User], APIError>) -> Void) {
+        
+        var urlRequest = URLRequest(url: resourceURL)
+        
+        urlRequest.setValue("Bearer \(userToken)", forHTTPHeaderField: "Authorization")
+        
+        let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, _ in
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let jsonData = data else {
+                completion(.failure(.responseProblem))
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                //let eventsData = try JSONDecoder().decode(User.self, from: jsonData)
+                let userData = try decoder.decode([User].self, from: jsonData)
+                print(userData)
+                completion(.success(userData))
+            } catch {
+                completion(.failure(.decodingProblem))
+            }
+        }
+        dataTask.resume()
+            
+        
+    }
+    
 }
 
 

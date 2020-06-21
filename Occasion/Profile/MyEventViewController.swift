@@ -24,6 +24,7 @@ class MyEventViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var inviteFriends: UITextField!
     
     //MARK: - Variables
+    var eventID = Int()
     var image = UIImage()
     var passTitle = String()
     var passDescription = String()
@@ -87,22 +88,67 @@ class MyEventViewController: UIViewController, UIGestureRecognizerDelegate {
         getDirections()
     }
     
+    @IBAction func inviteFriend(_ sender: Any) {
+        let emailAddressValidationResult = isValidEmailAddress(emailAddressString: inviteFriends.text!)
+        
+        guard let field = inviteFriends.text, !field.isEmpty else {
+            showAlert(title: "Write email!", message: "The email of your friend should not be empty, please write their email!")
+            print("email should not be empty")
+            return
+        }
+        
+        if !emailAddressValidationResult {
+            showAlert(title: "Invalid email!", message: "The email is not valid, please write a valid email!")
+            return
+        }
+        
+        inviteFriend(eventID: eventID, email: inviteFriends.text!)
+    }
     
     
-    func eventRespond(id: Int, _ status: String) {
-        let response = EventRespond(event_id: id, status: status)
+    func inviteFriend(eventID id: Int, email: String) {
+        let invite = Invite(event_id: id, email: email)
         
-        let postRequest = APIRequest(request: "respondEvent")
+        let postRequest = APIRequest(request: "invite")
         
-        postRequest.respondToEvent(response, completion: { result in
+        postRequest.inviteFriend(invite, completion: { result in
             switch result {
-            case .success(let eventResponse):
-                print("Responded: \(eventResponse.message)")
+            case .success(let inviteResponse):
+                print("Message: \(inviteResponse.message)")
             case .failure(let error):
                 print("Error: \(error)")
             }
             
         })
+    }
+    
+    func isValidEmailAddress(emailAddressString: String) -> Bool {
+        
+        var returnValue = true
+        let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: emailRegEx)
+            let nsString = emailAddressString as NSString
+            let results = regex.matches(in: emailAddressString, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0
+            {
+                returnValue = false
+            }
+            
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return  returnValue
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 
 }

@@ -24,21 +24,24 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signIn(_ sender: Any) {
+        let emailAddressValidationResult = isValidEmailAddress(emailAddressString: emailTextField.text!)
         
-        /*
         guard let emailField = emailTextField.text, !emailField.isEmpty else {
-            let alert = UIAlertController(title: "Write your email!", message: "Your email should not be empty, please write your email!", preferredStyle: .alert)
-            self.present(alert, animated: true)
+            showAlert(title: "Write your email!", message: "Your email should not be empty, please write your email!")
             print("email should not be empty")
             return
         }
         
+        if !emailAddressValidationResult {
+            showAlert(title: "Invalid email!", message: "Your email is not valid, please write your valid email!")
+            return
+        }
+        
         guard let passField = passwordTextField.text, !passField.isEmpty else {
-         let alert = UIAlertController(title: "Write your password!", message: "Your password should not be empty, please write your password!", preferredStyle: .alert)
-         self.present(alert, animated: true)
+            showAlert(title: "Write your password!", message: "Your password should not be empty, please write your password!")
             print("password should not be empty")
             return
-        }*/
+        }
         
         
         login()
@@ -49,8 +52,8 @@ class LoginViewController: UIViewController {
     func login() {
         let user = User(name: "", email: "emin@gmail.com", photo: "1111", birthdate: "", password: "")
         
-        let myEmail = /*emailTextField.text!*/ "emin@gmail.com"
-        let myPass = /*passwordTextField.text!*/ "1111"
+        let myEmail = emailTextField.text! //"emin@gmail.com"
+        let myPass = passwordTextField.text! //"1111"
         
         print("login?email=\(myEmail)&password=\(myPass)")
         
@@ -67,14 +70,43 @@ class LoginViewController: UIViewController {
                     self.performSegue(withIdentifier: "goToHome", sender: self)
                 }
             case .failure(let error):
-                let alert = UIAlertController(title: "Error", message: "Error while trying to login", preferredStyle: .alert)
-                self.present(alert, animated: true)
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: "Error while trying to login")
+                }
                 print("Error: \(error)")
             }
             
         })
     }
     
+    func isValidEmailAddress(emailAddressString: String) -> Bool {
+        
+        var returnValue = true
+        let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: emailRegEx)
+            let nsString = emailAddressString as NSString
+            let results = regex.matches(in: emailAddressString, range: NSRange(location: 0, length: nsString.length))
+            
+            if results.count == 0
+            {
+                returnValue = false
+            }
+            
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            returnValue = false
+        }
+        
+        return  returnValue
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
 
 }
 

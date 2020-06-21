@@ -46,3 +46,13 @@ final class EventRespond: Decodable {
         self.status = status
     }
 }
+
+final class Invite: Decodable {
+    var event_id: Int
+    var email: String
+    
+    init(event_id: Int, email: String) {
+        self.event_id = event_id
+        self.email = email
+    }
+}
