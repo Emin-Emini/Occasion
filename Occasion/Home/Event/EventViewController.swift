@@ -85,6 +85,31 @@ class EventViewController: UIViewController, UIGestureRecognizerDelegate {
         getDirections()
     }
     
+    @IBAction func going(_ sender: Any) {
+        eventRespond(id: 24, "going")
+    }
+    @IBAction func maybe(_ sender: Any) {
+        eventRespond(id: 24, "maybe")
+    }
+    @IBAction func reject(_ sender: Any) {
+        eventRespond(id: 24, "reject")
+    }
+    
+    func eventRespond(id: Int, _ status: String) {
+        let response = EventRespond(event_id: id, status: status)
+        
+        let postRequest = APIRequest(request: "respondEvent")
+        
+        postRequest.respondToEvent(response, completion: { result in
+            switch result {
+            case .success(let eventResponse):
+                print("Responded: \(eventResponse.message)")
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+            
+        })
+    }
     
 }
 

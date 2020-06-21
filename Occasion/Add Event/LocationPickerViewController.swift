@@ -88,6 +88,9 @@ class LocationPickerViewController: UIViewController {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)*/
         
+        selectedLatitude = "\(currentLatitude)"
+        selectedLongitude = "\(currentLongitude)"
+        
         self.dismiss(animated: true, completion: nil)
     }
     

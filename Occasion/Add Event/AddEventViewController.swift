@@ -10,6 +10,9 @@ import UIKit
 
 var previousViewIndex = 0
 
+var selectedLatitude = ""
+var selectedLongitude = ""
+
 class AddEventViewController: UIViewController, UINavigationControllerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate {
 
     
@@ -20,6 +23,10 @@ class AddEventViewController: UIViewController, UINavigationControllerDelegate, 
     @IBOutlet weak var eventImage: UIImageView!
     @IBOutlet weak var eventName: UITextField!
     @IBOutlet weak var eventDescription: UITextField!
+    @IBOutlet weak var pickedDate: UILabel!
+    
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var doneButtonBG: UIImageView!
     
     //Date Pickerview
     @IBOutlet weak var PDSeparatorView: UIView!
@@ -131,19 +138,43 @@ class AddEventViewController: UIViewController, UINavigationControllerDelegate, 
     @IBAction func submitDate(_ sender: Any) {
         showPickerView(show: false)
         
+        formatDate()
+        pickedDate.text = eventDate
     }
     
     //Submit Event
     @IBAction func submitEvent(_ sender: Any) {
         formatDate()
         
-        let eventToAdd = Event(image: eventImage.image!, title: eventName.text!, description: eventDescription.text!, startDate: "\(eventDate)", latitude: 38.73219, longitude: -9.2160)
+        let eName = eventName.text!
+        let eDescription = eventDescription.text!
         
-        print(eventToAdd)
-        events.append(eventToAdd)
         
-        self.dismiss(animated: true, completion: nil)
-        //self.tabBarController?.selectedIndex = previousViewIndex
+        let getEvents = APIRequest(request: "createEvent")
+
+        let event = Events(name: eName, date: eventDate, description: eDescription, latitude: selectedLatitude, longitude: selectedLongitude, photo: "default_photo")
+        
+        let postRequest = APIRequest(request: "createEvent")
+        
+        getEvents.createEvent(event, completion: { result in
+            switch result {
+            case .success(let event):
+                print("Print: \(event)")
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+
+        })
+        
+        //let eventToAdd = Event(image: "event1"/*eventImage.image!*/, title: eventName.text!, description: eventDescription.text!, startDate: "\(eventDate)", latitude: 38.73219, longitude: -9.2160)
+        
+        //print(eventToAdd)
+        //events.append(eventToAdd)
+        
+        
     }
     
 }
@@ -163,7 +194,7 @@ extension AddEventViewController {
     func formatDate() {
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM, YYYY - HH:MM"
+        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
         eventDate = dateFormatter.string(from: pickerDate.date)
         self.view.endEditing(true)
     }
